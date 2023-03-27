@@ -17,7 +17,7 @@ public class WeatherTests {
         };
     }
     @Test(groups = {"API"}, dataProvider = "cities")
-    public void getCity() {
-
+    public void getCity(String city) {
+        System.out.println(city);
     }
 }
