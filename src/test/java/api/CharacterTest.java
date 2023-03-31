@@ -4,8 +4,6 @@ import config.RestConfig;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import io.qameta.allure.testng.AllureTestNg;
-import io.restassured.response.ValidatableResponse;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
@@ -20,7 +18,7 @@ import static utils.PropertiesReader.getProperty;
 
 @Listeners(RestConfig.class)
 @Feature("Rick & Morty. Character")
-public class RickAndMortyTests {
+public class CharacterTest {
 
     @DataProvider
     public Object[][] names() {
@@ -33,7 +31,7 @@ public class RickAndMortyTests {
         };
     }
 
-    @Test(groups = {"API"}, dataProvider = "names")
+    @Test(dataProvider = "names")
     @Story("Get character by name")
     public void getCharacterByName(String name) {
         List<Character> characters = given()
@@ -46,10 +44,10 @@ public class RickAndMortyTests {
 
         characters.forEach(character -> {
             try {
-                Assert.assertEquals(character.getName(), name);
+                Assert.assertEquals(character.getName(), "name");
             } catch (AssertionError e) {
-                Allure.addAttachment("The name is different", e.getLocalizedMessage());
-                throw  new AssertionError();
+                Allure.addAttachment("The name is different: ", character.toString());
+                throw e;
             }
         });
     }

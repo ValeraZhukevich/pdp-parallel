@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="GUI" parallel="classes" thread-count="2" verbose="1">
+    <test name="Onliner GUI">
+        <packages>
+            <package name="gui.*"/>
+        </packages>
+    </test>
+</suite>
