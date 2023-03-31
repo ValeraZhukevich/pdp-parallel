@@ -1,23 +1,23 @@
-
 package pojo;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+import lombok.Data;
 import java.util.List;
 
-
+@Data
 public class Character {
+    private Long id;
+    private String created;
 
-    private String mCreated;
-    private List<String> mEpisode;
-    private String mGender;
-    private Long mId;
-    private String mImage;
-    private Location mLocation;
-    private String mName;
-    private Origin mOrigin;
-    private String mSpecies;
-    private String mStatus;
-    private String mType;
-    private String mUrl;
-
-
+    @JsonAlias("episode")
+    private List<String> episodes;
+    private String gender;
+    private String image;
+    private Location location;
+    private String name;
+    private Origin origin;
+    private String species;
+    private String status;
+    private String type;
+    private String url;
 }

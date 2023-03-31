@@ -10,7 +10,7 @@ import org.testng.*;
 import static io.restassured.RestAssured.given;
 import static utils.PropertiesReader.getProperty;
 
-public class RestConfig implements ISuiteListener {
+public class RestConfig implements ITestListener, ISuiteListener {
 
     @Override
     public void onStart(ISuite suite) {
