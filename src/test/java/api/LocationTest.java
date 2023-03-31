@@ -36,7 +36,7 @@ public class LocationTest {
     @Story("Get location by id")
     public void getLocationById(String id, String name) {
         Location location = given()
-                .param("id", id)
+                .pathParam("id", id)
                 .when()
                 .get(getProperty("location"))
                 .then().statusCode(200)
