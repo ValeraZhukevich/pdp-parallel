@@ -1,17 +1,13 @@
 package api;
 
 import config.RestConfig;
-import io.qameta.allure.Allure;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pojo.Character;
 import pojo.Location;
-
-import java.util.List;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
@@ -40,9 +36,9 @@ public class LocationTest {
                 .when()
                 .get(getProperty("location"))
                 .then().statusCode(200)
-                .assertThat().body(matchesJsonSchemaInClasspath("schemas/get_location.json"))
+                .assertThat()
+                .body(matchesJsonSchemaInClasspath("schemas/get_location.json"))
                 .extract().response().as(Location.class);
-
         Assert.assertEquals(location.getName(), name);
     }
 }

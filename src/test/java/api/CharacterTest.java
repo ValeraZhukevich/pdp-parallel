@@ -33,18 +33,19 @@ public class CharacterTest {
 
     @Test(dataProvider = "names")
     @Story("Get character by name")
-    public void getCharacterByName(String name) {
+    public void getCharactersByName(String name) {
         List<Character> characters = given()
                 .queryParam("name", name)
                 .when()
                 .get(getProperty("character"))
                 .then().statusCode(200)
-                .assertThat().body(matchesJsonSchemaInClasspath("schemas/get_characters.json"))
+                .assertThat()
+                .body(matchesJsonSchemaInClasspath("schemas/get_characters.json"))
                 .extract().response().jsonPath().getList("results", Character.class);
 
         characters.forEach(character -> {
             try {
-                Assert.assertEquals(character.getName(), "name");
+                Assert.assertEquals(character.getName(), name);
             } catch (AssertionError e) {
                 Allure.addAttachment("The name is different: ", character.toString());
                 throw e;
