@@ -1,31 +1,28 @@
 package gui;
 
-import config.GuiConfig;
+import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.annotations.DataProvider;
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
-import static com.codeborne.selenide.Selenide.*;
-import static utils.PropertiesReader.getProperty;
-
-@Listeners(GuiConfig.class)
-public class OnlinerSecondTest {
+@Feature("Onliner.by")
+public class OnlinerSecondTest extends BaseTest {
 
     @DataProvider
-    public Object[][] products() {
+    public Object[][] productsTwo() {
         return new String[][]{
                 {"Зубная щётка"},
                 {"Холодильник"},
                 {"микроволновка"},
         };
     }
-
-    @Test(dataProvider = "products")
-    @Story("Search product: {product}")
-    void searchSecondProduct(String product){
-        open(getProperty("gui.host"));
-        $(".fast-search__input").val(product).pressEnter();
-        sleep(5000);
+    @Test(dataProvider = "productsTwo")
+    @Story("Search two bunch products: ")
+    void secondSearchProduct(String product){
+        onlinerPage.openOnliner();
+        onlinerPage.typeInSearchField(product);
+        onlinerPage.switchToResults();
+        onlinerPage.allResultsShouldHaveText(product);
     }
+
 }

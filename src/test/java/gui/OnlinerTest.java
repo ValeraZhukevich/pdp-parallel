@@ -1,21 +1,21 @@
 package gui;
 
 import config.GuiConfig;
+import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
+import pages.OnlinerPage;
 
-import static com.codeborne.selenide.Selenide.*;
-import static utils.PropertiesReader.getProperty;
-
+@Feature("Onliner.by")
 @Listeners(GuiConfig.class)
-public class OnlinerTest {
+public class OnlinerTest extends BaseTest {
 
     @DataProvider
     public Object[][] products() {
         return new String[][]{
-                {"Робот пылесос"},
+                {"Робот-пылесос"},
                 {"Телевизор"},
                 {"наушники"},
                 {"велосипед"},
@@ -24,10 +24,11 @@ public class OnlinerTest {
     }
 
     @Test(dataProvider = "products")
-    @Story("Search product: {product}")
+    @Story("Search product: ")
     void searchProduct(String product){
-        open(getProperty("gui.host"));
-        $(".fast-search__input").val(product).pressEnter();
-        sleep(2000);
+        onlinerPage.openOnliner();
+        onlinerPage.typeInSearchField(product);
+        onlinerPage.switchToResults();
+        onlinerPage.allResultsShouldHaveText(product);
     }
 }

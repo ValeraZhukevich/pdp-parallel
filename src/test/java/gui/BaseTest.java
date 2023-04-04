@@ -1,24 +1,22 @@
-package config;
+package gui;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.testng.ISuite;
-import org.testng.ISuiteListener;
-import org.testng.ITestListener;
+import org.testng.annotations.BeforeClass;
 import pages.OnlinerPage;
 
 import java.util.Map;
 
-
 import static utils.PropertiesReader.getProperty;
 
-public class GuiConfig implements ITestListener, ISuiteListener {
+public class BaseTest {
 
-    OnlinerPage onlinerPage;
-    @Override
-    public void onStart(ISuite suite) {
+    protected OnlinerPage onlinerPage = new OnlinerPage();
+
+    @BeforeClass
+    public void beforeClass() {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("browserName", "chrome");
         capabilities.setCapability("selenoid:options", Map.<String, Object>of(
@@ -32,7 +30,5 @@ public class GuiConfig implements ITestListener, ISuiteListener {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide()
                 .screenshots(true)
                 .savePageSource(true));
-
-        onlinerPage = new OnlinerPage();
     }
 }
