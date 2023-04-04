@@ -11,9 +11,9 @@ public class OnlinerSecondTest extends BaseTest {
     @DataProvider
     public Object[][] productsTwo() {
         return new String[][]{
-                {"Зубная щётка"},
-                {"Холодильник"},
-                {"микроволновка"},
+                {"Пылесос"},
+                {"Наушники"},
+                {"Микроволновая печь"},
         };
     }
     @Test(dataProvider = "productsTwo")

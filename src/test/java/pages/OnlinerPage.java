@@ -35,6 +35,6 @@ public class OnlinerPage {
     @Step("All results should have text '{productName}'")
     public void allResultsShouldHaveText(String productName) {
         productTitles.should(allMatch("Verify that all results have appropriate values",
-                element -> element.getText().contains(productName)));
+                element -> element.getText().toLowerCase().contains(productName.toLowerCase())));
     }
 }

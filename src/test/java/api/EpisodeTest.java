@@ -1,6 +1,7 @@
 package api;
 
 import config.RestConfig;
+import exception.SortedByIdException;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.restassured.response.Response;
@@ -43,8 +44,12 @@ public class EpisodeTest {
             else break;
         } while (true);
         List<Episode> sortedEpisodes = episodes.stream()
-                .sorted(comparing(Episode::getId))
+                .sorted(comparing(Episode::getName))
                 .collect(toList());
-        Assert.assertEquals(sortedEpisodes, episodes);
+        try {
+            Assert.assertEquals(sortedEpisodes, episodes);
+        } catch (AssertionError error){
+            throw new SortedByIdException(error.getMessage());
+        }
     }
 }
